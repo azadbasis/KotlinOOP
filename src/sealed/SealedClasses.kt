@@ -26,6 +26,16 @@ sealed class Response<T>(){
     data class Error(val exception: Exception):Response<Nothing>()
     object InProgress:Response<Nothing>()
 }
+
+fun processResult(result: Result<Any>) {
+    when (result) {
+        is Result.Success -> println(result.data) // This works with both Result types
+        is Result.Error -> println(result.exception)
+        is Result.InProgress -> println("In progress")
+    }
+}
+
+
 fun main() {
     val results = Success("Data load success!!")
     getData(results)
